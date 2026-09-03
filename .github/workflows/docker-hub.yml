@@ -28,7 +28,7 @@ env:
   IMAGE_NAME: ech0
   NODE_VERSION: "25"
   PNPM_VERSION: "11"
-  GO_VERSION: "1.27.2"
+  GO_VERSION: "1.26.0"
   ZIG_VERSION: "latest"
 
 jobs:
