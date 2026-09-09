@@ -265,7 +265,7 @@
   padding: 0.2rem 0.55rem;
   font-size: 0.75rem;
   font-weight: 500;
-  line-height: 1.4;
+  line-height: 1.5;
   cursor: pointer;
   font-family: inherit;
   transition:
@@ -360,5 +360,38 @@
   .echo-markdown td {
     min-width: 0;
     padding: 0.4rem 0.5rem;
+  }
+
+
+
+
+
+  .editor-actions__smile-panel {
+    left: 0.35rem;
+    right: 0.35rem;
+    width: auto;
+    max-width: none;
+    scrollbar-width: none;
+  }
+  .editor-actions__smile-item {
+    width: auto;
+    height: auto;
+    padding: 0px;
+    margin: 3px;
+  }
+  .editor-actions__smile-grid { grid-template-columns: repeat(10, 1fr); }
+
+
+  .editor-actions__smile-panel::-webkit-scrollbar {
+    display: none;
+  }
+  .home-shell {
+    padding: 0 0.5rem;
+  }
+  .home-shell--publish .home-layout {
+    min-height: 100vh;
+  }
+  .home-shell {
+    margin: 0px;
   }
 }
