@@ -9,7 +9,7 @@ declare namespace App {
         | { type: 'MUSIC'; payload: { url: string } }
         | { type: 'VIDEO'; payload: { videoId: string } }
         | { type: 'GITHUBPROJ'; payload: { repoUrl: string } }
-        | { type: 'WEBSITE'; payload: { title: string; site: string } }
+        | { type: 'WEBSITE'; payload: { title: string; site: string; password?: string } }
         | {
             type: 'LOCATION'
             payload: { placeholder: string; latitude: number; longitude: number }
