@@ -115,6 +115,8 @@ const fillEditorFromEchoToUpdate = () => {
       case ExtensionType.WEBSITE:
         websiteToAdd.value.title = echoToUpdate.value.extension.payload.title || ''
         websiteToAdd.value.site = echoToUpdate.value.extension.payload.site || ''
+        
+        websiteToAdd.value.password = echoToUpdate.value.extension.payload.password || ''
         break
       case ExtensionType.LOCATION: {
         const payload = echoToUpdate.value.extension.payload
