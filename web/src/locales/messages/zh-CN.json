@@ -1,4 +1,4 @@
-﻿{
+{
   "common": {
     "requestFailed": "请求失败",
     "save": "保存",
@@ -64,6 +64,7 @@
     "tweetUrlPlaceholder": "https://x.com/username/status/1234567890",
     "tweetUrlInvalid": "推文链接格式不正确",
     "websiteTitlePlaceholder": "网站标题...",
+    "websitePasswordPlaceholder": "提取码(选填)",
     "websiteUrlPlaceholder": "https://example.com",
     "websiteShare": "网站链接分享",
     "fetchingTitle": "获取中…",
