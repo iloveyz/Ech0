@@ -181,5 +181,6 @@ declare namespace App {
         file_url: string
       }
     }
+    
   }
 }
