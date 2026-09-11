@@ -1,4 +1,4 @@
-﻿{
+{
   "common": {
     "requestFailed": "Request failed",
     "save": "Save",
@@ -64,6 +64,7 @@
     "tweetUrlPlaceholder": "https://x.com/username/status/1234567890",
     "tweetUrlInvalid": "Invalid post URL",
     "websiteTitlePlaceholder": "Website title...",
+    "websitePasswordPlaceholder": "Password (optional)",
     "websiteUrlPlaceholder": "https://example.com",
     "websiteShare": "Website link share",
     "fetchingTitle": "Fetching...",
