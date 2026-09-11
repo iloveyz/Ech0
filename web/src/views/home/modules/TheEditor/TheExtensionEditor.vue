@@ -99,6 +99,12 @@
           {{ isFetchingWebsiteTitle ? t('editor.fetchingTitle') : t('editor.fetchTitle') }}
         </BaseButton>
       </div>
+      <!-- ✅ 新增：提取码输入框 -->
+      <BaseInput
+        v-model="editorStore.websiteToAdd.password"
+        class="rounded-lg h-auto w-full mt-2"
+        :placeholder="t('editor.websitePasswordPlaceholder')"
+      />
     </div>
     <div v-if="editorStore.currentExtensionType === ExtensionType.LOCATION">
       <div class="text-[var(--color-text-secondary)] font-bold mb-1">
