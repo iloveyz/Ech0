@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 // Copyright (C) 2025-2026 lin-snow
 
-import { computed, ref, type Ref } from 'vue'
+import { computed, ref, watch, type Ref } from 'vue'
 import { ExtensionType } from '@/enums/enums'
 import { theToast } from '@/utils/toast'
 import { parseTweetUrl } from '@/utils/tweet'
@@ -24,6 +24,24 @@ export function useExtensionModule({ echoToAdd, t }: ExtensionModuleDeps) {
     placeholder: '',
   })
   const tweetToAdd = ref<TweetToAdd>({ url: '', username: '', statusId: '' })
+
+  // ✅ 新增：监听 site，如果用户没填提取码，就尝试从 URL 里抠一个
+  watch(
+    () => websiteToAdd.value.site,
+    (site) => {
+      if (websiteToAdd.value.password) return
+      if (!site) return
+      try {
+        const url = new URL(site)
+        const pwd = url.searchParams.get('pwd') || url.searchParams.get('password')
+        if (pwd) {
+          websiteToAdd.value.password = pwd
+        }
+      } catch {
+        // 不是标准 URL，忽略
+      }
+    }
+  )
 
   const hasExtension = computed(() => {
     const ext = extensionToAdd.value.extension
