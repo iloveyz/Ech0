@@ -553,9 +553,11 @@ func normalizeEchoExtension(ext *model.EchoExtension) (*model.EchoExtension, err
 		if title == "" || site == "" {
 			return nil, fmt.Errorf("extension payload.title and payload.site are required for WEBSITE")
 		}
+		password := strings.TrimSpace(getPayloadString(ext.Payload, "password"))
 		ext.Payload = map[string]any{
-			"title": title,
-			"site":  urlUtil.TrimURL(site),
+			"title":    title,
+			"site":     urlUtil.TrimURL(site),
+			"password": password,
 		}
 	case model.Extension_LOCATION:
 		lat, okLat := getPayloadFloat(ext.Payload, "latitude")
