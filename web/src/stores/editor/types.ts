@@ -15,6 +15,8 @@ export type ExtensionToAdd = {
 export type WebsiteToAdd = {
   title: string
   site: string
+
+  password?: string
 }
 
 export type TweetToAdd = {
