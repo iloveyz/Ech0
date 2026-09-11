@@ -13,7 +13,7 @@ type ExtensionModuleDeps = {
 }
 
 export function useExtensionModule({ echoToAdd, t }: ExtensionModuleDeps) {
-  const websiteToAdd = ref<WebsiteToAdd>({ title: '', site: '' })
+  const websiteToAdd = ref<WebsiteToAdd>({ title: '', site: '', password: '' })
   const videoURL = ref<string>('')
   const musicURL = ref<string>('')
   const githubRepo = ref<string>('')
@@ -191,13 +191,29 @@ export function useExtensionModule({ echoToAdd, t }: ExtensionModuleDeps) {
         return
       case ExtensionType.WEBSITE: {
         const { title, site } = websiteToAdd.value
+        let password = websiteToAdd.value.password
+
         if (!title || !site) {
           echoToAdd.value.extension = null
           return
         }
+
+        // 如果用户没填提取码，从 URL 里尝试抠一个
+        if (!password) {
+          try {
+            const url = new URL(site)
+            password =
+              url.searchParams.get('pwd') ||
+              url.searchParams.get('password') ||
+              ''
+          } catch {
+            // 不是标准 URL，忽略
+          }
+        }
+
         echoToAdd.value.extension = {
           type: ExtensionType.WEBSITE,
-          payload: { title, site },
+          payload: { title, site, password },
         }
         return
       }
@@ -236,7 +252,7 @@ export function useExtensionModule({ echoToAdd, t }: ExtensionModuleDeps) {
     githubRepo.value = ''
     extensionToAdd.value = { extension: '', extension_type: '' }
     locationToAdd.value = { latitude: null, longitude: null, placeholder: '' }
-    websiteToAdd.value = { title: '', site: '' }
+    websiteToAdd.value = { title: '', site: '', password: '' }
     tweetToAdd.value = { url: '', username: '', statusId: '' }
   }
 
