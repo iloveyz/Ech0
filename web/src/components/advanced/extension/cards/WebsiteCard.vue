@@ -6,7 +6,7 @@
       <component :is="iconComponent" />
     </template>
     <a
-      :href="websiteInfo.site"
+      :href="props.website.site"
       target="_blank"
       rel="noopener noreferrer"
       class="website-card__link website-card__body"
@@ -16,9 +16,9 @@
         <Link class="w-4 h-4" />
       </div>
       <div class="website-meta">
-        <span class="website-title">{{ websiteInfo.title }}</span>
-        <span v-if="websiteInfo.password" class="website-domain">
-          提取码：{{ websiteInfo.password }}
+        <span class="website-title">{{ props.website.title }}</span>
+        <span v-if="props.website.password" class="website-domain">
+          提取码：{{ props.website.password }}
         </span>
         <span v-else class="website-domain">{{ displayDomain }}</span>
       </div>
@@ -31,48 +31,14 @@ import { computed, defineAsyncComponent } from 'vue'
 import Link from '@/components/icons/link.vue'
 import ExtensionCardShell from '../shared/ExtensionCardShell.vue'
 import { detectLinkType } from '@/utils/linkType'
-
-
-
 import { theToast } from '@/utils/toast'
-
-function handleClick(e: MouseEvent) {
-  const url = websiteInfo.site
-  if (!websiteInfo.password) {
-    // 没提取码，直接跳
-    window.open(url, '_blank', 'noopener,noreferrer')
-    return
-  }
-
-  // 有提取码，先复制
-  try {
-    const textarea = document.createElement('textarea')
-    textarea.value = websiteInfo.password
-    textarea.style.position = 'fixed'
-    textarea.style.opacity = '0'
-    document.body.appendChild(textarea)
-    textarea.select()
-    document.execCommand('copy')
-    document.body.removeChild(textarea)
-    theToast.success('提取码已复制')
-  } catch {
-    theToast.error('复制失败')
-  }
-
-  // 延迟一点再跳，让 toast 有机会渲染
-  setTimeout(() => {
-    window.open(url, '_blank', 'noopener,noreferrer')
-  }, 400)
-}
 
 const props = defineProps<{
   website: { title: string; site: string; password?: string }
 }>()
-const websiteInfo = props.website
 
-const linkType = computed(() => detectLinkType(websiteInfo.site))
+const linkType = computed(() => detectLinkType(props.website.site))
 
-// 一次性把 icons 目录下所有 .vue 都读进来
 const iconModules = import.meta.glob('@/components/icons/*.vue')
 
 function resolveIcon(name: string) {
@@ -86,7 +52,7 @@ function resolveIcon(name: string) {
 const iconComponent = computed(() => resolveIcon(linkType.value.icon))
 
 const displayDomain = computed(() => {
-  const site = websiteInfo.site.trim()
+  const site = props.website.site.trim()
   if (!site) return ''
   try {
     const parsed = new URL(site)
@@ -96,12 +62,32 @@ const displayDomain = computed(() => {
   }
 })
 
-const displaySub = computed(() => {
-  if (websiteInfo.password) {
-    return `提取码：${websiteInfo.password}`
+function handleClick() {
+  const url = props.website.site
+  const password = props.website.password
+  if (!password) {
+    window.open(url, '_blank', 'noopener,noreferrer')
+    return
   }
-  return displayDomain.value
-})
+
+  try {
+    const textarea = document.createElement('textarea')
+    textarea.value = password
+    textarea.style.position = 'fixed'
+    textarea.style.opacity = '0'
+    document.body.appendChild(textarea)
+    textarea.select()
+    document.execCommand('copy')
+    document.body.removeChild(textarea)
+    theToast.success('提取码已复制')
+  } catch {
+    theToast.error('复制失败')
+  }
+
+  setTimeout(() => {
+    window.open(url, '_blank', 'noopener,noreferrer')
+  }, 400)
+}
 </script>
 
 <style scoped>
