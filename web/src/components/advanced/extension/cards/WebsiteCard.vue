@@ -164,4 +164,4 @@ const displaySub = computed(() => {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-</style>
+</style
